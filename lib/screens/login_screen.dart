@@ -70,6 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
             'assets/logo.svg',
             color: primaryColor,
             height: 64,
+            fit: BoxFit.scaleDown,
           ),
           const SizedBox(height: 64),
           TextFieldInput(

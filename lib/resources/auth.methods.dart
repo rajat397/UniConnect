@@ -32,7 +32,7 @@ class AuthMethods {
           'password': password
         });
 
-        res = "success";
+        res = "Success";
       }
     } catch (err) {
       res = err.toString();
