@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:uniconnect/resources/auth.methods.dart';
+import 'package:uniconnect/responsive/mobile_screen_layout.dart';
+import 'package:uniconnect/responsive/responsive_layout_screen.dart';
+import 'package:uniconnect/responsive/web_screen_layout.dart';
+import 'package:uniconnect/screens/login_screen.dart';
 import 'package:uniconnect/util/colors.dart';
+import 'package:uniconnect/util/utils.dart';
 import 'package:uniconnect/widgets/text_field_input.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -15,12 +21,48 @@ class SignupScreenState extends State<SignupScreen> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
 
+  bool isLoading = false;
+
   @override
   void dispose() {
     super.dispose();
     emailController.dispose();
     passwordController.dispose();
     usernameController.dispose();
+  }
+
+  void signUpUser() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    // signup user using our authmethodds
+    String res = await AuthMethods().signUpUser(
+      email: emailController.text,
+      password: passwordController.text,
+      username: usernameController.text,
+    );
+    // if string returned is success, user has been created
+
+    setState(() {
+      isLoading = false;
+    });
+    if (res != "Success") {
+      showSnackBar(res, context);
+    } else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+              webScreenLayout: WebScreenLayout(),
+              mobileScreenLayout: MobileScreenLayout()),
+        ),
+      );
+    }
+  }
+
+  void navigateToLogin() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
 
   Widget build(BuildContext context) {
@@ -37,17 +79,8 @@ class SignupScreenState extends State<SignupScreen> {
             height: 64,
           ),
           const SizedBox(height: 64),
-          //circular widget to accept and show our selected file
-          // Stack(
-          //   children[
-          //     CircleAvatar(
-          //       radius: 64,
-          //       backgroundImage: NetworkImage('https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80'),
-          //     ),
+          // circular widget to accept and show our selected file
 
-          //   Positioned(child: IconButton(onPressed: () {},icon: const Icon(Icons.add_a_photo,),),),
-          //   ],
-          // ),
           TextFieldInput(
               textEditingController: usernameController,
               hintText: 'Enter your username',
@@ -72,9 +105,15 @@ class SignupScreenState extends State<SignupScreen> {
             height: 24,
           ),
           InkWell(
-            onTap: () {},
+            onTap: signUpUser,
             child: Container(
-              child: const Text('Log in'),
+              child: !isLoading
+                  ? const Text(
+                      'Sign up',
+                    )
+                  : const CircularProgressIndicator(
+                      color: primaryColor,
+                    ),
               width: double.infinity,
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(vertical: 12),
@@ -87,6 +126,7 @@ class SignupScreenState extends State<SignupScreen> {
                   color: blueColor),
             ),
           ),
+
           const SizedBox(
             height: 12,
           ),
@@ -95,16 +135,16 @@ class SignupScreenState extends State<SignupScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                child: const Text("Don't have an account?"),
+                child: const Text("Already have an account?"),
                 padding: const EdgeInsets.symmetric(
                   vertical: 8,
                 ),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: navigateToLogin,
                 child: Container(
                   child: const Text(
-                    "Sign up",
+                    "Login",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
