@@ -72,15 +72,26 @@ class SignupScreenState extends State<SignupScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 32),
         width: double.infinity,
         child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          Flexible(child: Container(), flex: 2),
-          SvgPicture.asset(
-            'assets/logo.svg',
-            color: primaryColor,
-            height: 64,
+          Flexible(flex: 3, child:
+              Image.asset(
+                  'assets/logo_png.png',
+                height: 1000,
+              )
+          // SvgPicture.asset(
+            // 'assets/logo.svg',
+            // matchTextDirection: false,
+            // allowDrawingOutsideViewBox: true,
+            // // height: 3205,
+            // placeholderBuilder: (context)=> const CircularProgressIndicator(),
+            // fit: BoxFit.contain,
+            // alignment: Alignment.center,
+          // )
           ),
-          const SizedBox(height: 64),
-          // circular widget to accept and show our selected file
+          const SizedBox(
+            height: 30,
+          ),
 
+          // Image.asset('assets/logo_png.png'),
           TextFieldInput(
               textEditingController: usernameController,
               hintText: 'Enter your username',

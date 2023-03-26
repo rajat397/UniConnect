@@ -58,6 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
         .push(MaterialPageRoute(builder: (context) => const SignupScreen()));
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -65,18 +66,22 @@ class _LoginScreenState extends State<LoginScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 32),
         width: double.infinity,
         child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          Flexible(child: Container(), flex: 2),
-          SvgPicture.asset(
+          Flexible(flex: 3, child: SvgPicture.asset(
             'assets/logo.svg',
-            color: primaryColor,
-            height: 64,
-            fit: BoxFit.scaleDown,
-          ),
-          const SizedBox(height: 64),
+            // matchTextDirection: false,
+            // allowDrawingOutsideViewBox: true,
+            // height: 3205,
+            placeholderBuilder: (context)=> const CircularProgressIndicator(),
+            // fit: BoxFit.contain,
+            // alignment: Alignment.center,
+          )),
+
+          // const SizedBox(height: 0),
           TextFieldInput(
               textEditingController: emailController,
               hintText: 'Enter your email',
               textInputType: TextInputType.emailAddress),
+          const SizedBox(height: 20),
           TextFieldInput(
             textEditingController: passwordController,
             hintText: 'Enter your Password',
@@ -89,13 +94,6 @@ class _LoginScreenState extends State<LoginScreen> {
           InkWell(
             onTap: loginUser,
             child: Container(
-              child: isLoading
-                  ? const Center(
-                      child: CircularProgressIndicator(
-                        color: primaryColor,
-                      ),
-                    )
-                  : const Text('Log in'),
               width: double.infinity,
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(vertical: 12),
@@ -106,32 +104,39 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   color: blueColor),
+              child: isLoading
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                        color: primaryColor,
+                      ),
+                    )
+                  : const Text('Log in'),
             ),
           ),
           const SizedBox(
             height: 12,
           ),
-          Flexible(child: Container(), flex: 2),
+          Flexible(flex: 2, child: Container()),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                child: const Text("Don't have an account?"),
                 padding: const EdgeInsets.symmetric(
                   vertical: 8,
                 ),
+                child: const Text("Don't have an account?"),
               ),
               GestureDetector(
                 onTap: navigateToSignUp,
                 child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8,
+                  ),
                   child: const Text(
                     "Sign up",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 8,
                   ),
                 ),
               ),
