@@ -2,9 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:uniconnect/responsive/mobile_screen_layout.dart';
 import 'package:uniconnect/responsive/responsive_layout_screen.dart';
 import 'package:uniconnect/responsive/web_screen_layout.dart';
+import 'package:uniconnect/screens/home_page.dart';
 import 'package:uniconnect/screens/login_screen.dart';
 import 'package:uniconnect/util/colors.dart';
 
@@ -31,6 +33,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(statusBarColor: Colors.transparent)
+    );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'UniConnect',
@@ -39,9 +44,10 @@ class MyApp extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
             if (snapshot.hasData) {
-              return ResponsiveLayout(
-                  webScreenLayout: WebScreenLayout(),
-                  mobileScreenLayout: MobileScreenLayout());
+              // return ResponsiveLayout(
+              //     webScreenLayout: WebScreenLayout(),
+              //     mobileScreenLayout: MobileScreenLayout());
+              return HomePage();
             } else if (snapshot.hasError) {
               return Center(
                 child: Text('some internal error occurred'),
