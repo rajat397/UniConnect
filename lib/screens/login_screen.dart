@@ -21,6 +21,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = TextEditingController();
   bool isLoading = false;
 
+
+
   @override
   void dispose() {
     super.dispose();
@@ -63,11 +65,18 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: SafeArea(
           child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/loginbg.jpg'),
+                fit: BoxFit.cover,
+              )
+            ),
         padding: const EdgeInsets.symmetric(horizontal: 32),
         width: double.infinity,
         child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           Flexible(flex: 3, child: SvgPicture.asset(
             'assets/logo.svg',
+            // height: 1000,
             // matchTextDirection: false,
             // allowDrawingOutsideViewBox: true,
             // height: 3205,

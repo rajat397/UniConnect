@@ -61,18 +61,23 @@ class SignupScreenState extends State<SignupScreen> {
   }
 
   void navigateToLogin() {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const LoginScreen()));
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const LoginScreen()),(route)=>false);
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
           child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/loginbg.jpg'),
+                fit: BoxFit.cover,
+              )
+            ),
         padding: const EdgeInsets.symmetric(horizontal: 32),
         width: double.infinity,
         child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          Flexible(flex: 3, child:
+          Flexible(flex: 4, child:
               Image.asset(
                   'assets/logo_png.png',
                 height: 1000,
