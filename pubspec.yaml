@@ -56,7 +56,16 @@ flutter:
     - assets/logo_png.png
     - assets/loginbg.jpg
     - assets/left-arrow.png
-    # - images/a_dot_ham.jpeg
+    - assets/logo_png.png
+    - assets/default_prof_pic.png
+    - assets/default_prof_pic2.jpg
+    - assets/prof_pic3.jpg
+    - assets/inner_icons/buy_sell.png
+    - assets/inner_icons/carpool.png
+    - assets/inner_icons/food_order.png
+    - assets/inner_icons/games.png
+    - assets/inner_icons/mess_feedback.png
+    - assets/inner_icons/notes_sharing.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
