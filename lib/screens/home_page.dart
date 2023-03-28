@@ -38,34 +38,34 @@
 
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
-import 'package:uniconnect/responsive/mobile_screen_layout.dart';
+// import 'package:flutter/painting.dart';
+// import 'package:flutter/rendering.dart';
+// import 'package:uniconnect/responsive/mobile_screen_layout.dart';
 import 'package:uniconnect/screens/NavBar.dart';
-import 'package:uniconnect/util/colors.dart';
+// import 'package:uniconnect/util/colors.dart';
 // import 'package:flutter_smart_home/temperature.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Smart Home App',
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
-      ),
-      home: const HomePage(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
+// void main() {
+//   runApp(const MyApp());
+// }
+//
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Flutter Smart Home App',
+//       theme: ThemeData(
+//         primarySwatch: Colors.indigo,
+//       ),
+//       home: const HomePage(),
+//       debugShowCheckedModeBanner: false,
+//     );
+//   }
+// }
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -91,43 +91,18 @@ class _HomePageState extends State<HomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Stack(
-                    //   children: [
-                    //     GestureDetector(
-                    //       onTap: () {
-                    //         print("Hello World!");
-                    //         Scaffold.of(context).openDrawer();
-                    //       },
-                    //       child: RotatedBox(
-                    //         quarterTurns: 145,
-                    //         child: Icon(
-                    //           Icons.bar_chart_rounded,
-                    //           color: Colors.indigo,
-                    //           size: 28,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     const NavBar(),
-                    //   ],
-                    // ),
-                    GestureDetector(
-                      onTap: () {
-                        print("Hello World!");
-                        final scaffold = Scaffold.of(context);
-                        // Open the drawer
-                        scaffold.openDrawer();
-                      },
-                      child: RotatedBox(
-                        quarterTurns: 145,
-                        child: Icon(
-                          Icons.bar_chart_rounded,
-                          color: Colors.indigo,
-                          size: 28,
-                        ),
-                      ),
 
+                    Builder(
+                        builder: (BuildContext context){
+                          return IconButton(
+                            icon: const Icon(Icons.menu),
+                            onPressed: () {
+                              Scaffold.of(context).openDrawer();
+                            },
+                          );
+                        },
                     ),
-                    Text(
+                    const Text(
                           'Home Page',
                           style: TextStyle(
                             fontSize: 18,
@@ -135,13 +110,23 @@ class _HomePageState extends State<HomePage> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                    Container(
-                      height: 40,
-                      width: 40,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.asset('assets/logo_png.png'),),
-                    )
+                    Builder(
+                        builder: (BuildContext context){
+                          return GestureDetector(
+                            onTap: () {
+                              print('The Sizedbox is tapped');
+                              Scaffold.of(context).openDrawer();
+                            },
+                            child: SizedBox(
+                              height: 40,
+                              width: 40,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image.asset('assets/logo_png.png'),
+                              ),
+                            ),
+                          );
+                        } ),
                   ]
               ),
               Expanded(
@@ -189,7 +174,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const MobileScreenLayout(),
+                                  builder: (context) => const NavBar(),
                               ),
                             );},
                         ),

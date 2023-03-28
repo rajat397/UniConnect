@@ -4,6 +4,7 @@ import 'package:uniconnect/resources/auth.methods.dart';
 import 'package:uniconnect/responsive/mobile_screen_layout.dart';
 import 'package:uniconnect/responsive/responsive_layout_screen.dart';
 import 'package:uniconnect/responsive/web_screen_layout.dart';
+import 'package:uniconnect/screens/home_page.dart';
 import 'package:uniconnect/screens/signup_screen.dart';
 import 'package:uniconnect/util/colors.dart';
 import 'package:uniconnect/util/utils.dart';
@@ -43,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
         MaterialPageRoute(
           builder: (context) => const ResponsiveLayout(
               webScreenLayout: WebScreenLayout(),
-              mobileScreenLayout: MobileScreenLayout()),
+              mobileScreenLayout: HomePage()),
         ),
       );
     } else {

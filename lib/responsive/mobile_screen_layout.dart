@@ -7,7 +7,7 @@ class MobileScreenLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal,
+      backgroundColor: Colors.grey,
       appBar: AppBar(
         backgroundColor: blueColor,
         elevation: 0,
