@@ -10,20 +10,20 @@ class NavBar extends StatelessWidget {
         // Remove padding
         padding: EdgeInsets.zero,
         children: [
-          UserAccountsDrawerHeader(
-            accountName: const Text('Oflutter.com'),
-            accountEmail: const Text('example@gmail.com'),
+          const UserAccountsDrawerHeader(
+            accountName: Text('Oflutter.com'),
+            accountEmail: Text('example@gmail.com'),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
-                child: Image.network(
-                  'assets/logo_png.png',
+                child: Image(
+                  image: AssetImage('assets/prof_pic3.jpg'),
                   fit: BoxFit.cover,
                   width: 90,
                   height: 90,
                 ),
               ),
             ),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: Colors.blue,
               image: DecorationImage(
                   fit: BoxFit.fill,
