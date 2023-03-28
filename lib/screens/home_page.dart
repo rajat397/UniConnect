@@ -80,9 +80,19 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const NavBar(),
-      backgroundColor: Colors.indigo.shade50,
+      // backgroundColor: Colors.indigo.shade50,
       body: SafeArea(
-        child: Container(
+        child: Stack(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/home_bg.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+        Container(
           margin: const EdgeInsets.only(top: 18, left: 24, right: 24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -217,15 +227,17 @@ class _HomePageState extends State<HomePage> {
 
                     const SizedBox(height: 28),
                     const SizedBox(height: 28),
-                    const SizedBox(height: 28),
-                    const SizedBox(height: 28),
-                    const SizedBox(height: 28),
+                    // const SizedBox(height: 28),
+                    // const SizedBox(height: 28),
+                    // const SizedBox(height: 28),
                   ],
                 ),
               ),
             ],
           ),
         ),
+      ],
+      ),
       ),
     );
   }

@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:uniconnect/screens/login_screen.dart';
+import 'package:uniconnect/screens/profile_view.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({super.key});
@@ -32,9 +36,29 @@ class NavBar extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.favorite),
-            title: const Text('Favorites'),
-            onTap: () {},
+            leading: const Icon(Icons.account_circle_sharp),
+            title: const Text('Profile'),
+            onTap: (){
+              Navigator.push(context,
+                  PageRouteBuilder(
+                    transitionDuration: Duration(milliseconds: 500),
+                    pageBuilder: (BuildContext context,Animation<double> animation,Animation<double> secAnimation){
+                      return ProfileView();
+                    },
+                    transitionsBuilder: (context,animation,secAnimation,child){
+                      var begin= Offset(-1.0, 0.0);
+                      var end=Offset.zero;
+                      var curve= Curves.ease;
+                      var tween= Tween(begin: begin,end: end).chain(CurveTween(curve: curve));
+                      var curvedAnimation = CurvedAnimation(parent: animation,curve: curve);
+                      return SlideTransition(
+                        position: tween.animate(curvedAnimation),
+                        child: child,
+                      );
+                    },
+                  )
+                  );
+            },
           ),
           ListTile(
             leading: const Icon(Icons.person),
@@ -56,16 +80,21 @@ class NavBar extends StatelessWidget {
             title: const Text('Settings'),
             onTap: (){},
           ),
-          ListTile(
-            leading: const Icon(Icons.description),
-            title: const Text('Policies'),
-            onTap: () {},
-          ),
           const Divider(),
+          ListTile(
+            title: const Text('Logout'),
+            leading: const Icon(Icons.logout),
+            onTap: (){
+              FirebaseAuth.instance.signOut();
+              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=> const LoginScreen()), (route) => false);
+            },
+          ),
           ListTile(
             title: const Text('Exit'),
             leading: const Icon(Icons.exit_to_app),
-            onTap: () {},
+            onTap: () {
+              SystemNavigator.pop();
+            },
           ),
         ],
       ),

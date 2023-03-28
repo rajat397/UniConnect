@@ -67,6 +67,7 @@ flutter:
     - assets/inner_icons/mess_feedback.png
     - assets/inner_icons/notes_sharing.png
     - assets/inner_icons/games.svg
+    - assets/home_bg.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
