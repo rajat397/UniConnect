@@ -40,10 +40,15 @@ import 'dart:async';
 
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:uniconnect/providers/providers.dart';
 // import 'package:flutter/painting.dart';
 // import 'package:flutter/rendering.dart';
 // import 'package:uniconnect/responsive/mobile_screen_layout.dart';
 import 'package:uniconnect/screens/NavBar.dart';
+import 'package:uniconnect/models/user.dart' as model;
+
+import '../models/user.dart';
 // import 'package:uniconnect/util/colors.dart';
 // import 'package:flutter_smart_home/temperature.dart';
 
@@ -78,6 +83,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // model.User user = Provider.of<UserProvider>(context).getUser;
+
+
     return Scaffold(
       drawer: const NavBar(),
       // backgroundColor: Colors.indigo.shade50,
