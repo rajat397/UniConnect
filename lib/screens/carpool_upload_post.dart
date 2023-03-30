@@ -1,4 +1,4 @@
-import 'dart:html';
+// import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +25,16 @@ class _Carpool_upload_postState extends State<Carpool_upload_post> {
       TextEditingController();
   final TextEditingController expectedPerHeadChargeController =
       TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    startController.dispose();
+    destinationController.dispose();
+    vehicleController.dispose();
+    timeOfDepartureController.dispose();
+    expectedPerHeadChargeController.dispose();
+  }
 
   bool _isloading = false;
   void uploadPost() async {
@@ -63,15 +73,7 @@ class _Carpool_upload_postState extends State<Carpool_upload_post> {
     } catch (e) {}
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    startController.dispose();
-    destinationController.dispose();
-    vehicleController.dispose();
-    timeOfDepartureController.dispose();
-    expectedPerHeadChargeController.dispose();
-  }
+
 
   @override
   Widget build(BuildContext context) {

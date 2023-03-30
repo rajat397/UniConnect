@@ -39,6 +39,7 @@
 import 'dart:async';
 
 // import 'package:flutter/cupertino.dart';
+import 'package:uniconnect/util/slideshow.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uniconnect/providers/providers.dart';
@@ -47,10 +48,10 @@ import 'package:uniconnect/providers/providers.dart';
 // import 'package:uniconnect/responsive/mobile_screen_layout.dart';
 import 'package:uniconnect/screens/NavBar.dart';
 import 'package:uniconnect/models/user.dart' as model;
+import 'package:uniconnect/screens/carpool_upload_post.dart';
 
 import '../models/user.dart';
 // import 'package:uniconnect/util/colors.dart';
-// import 'package:flutter_smart_home/temperature.dart';
 
 // void main() {
 //   runApp(const MyApp());
@@ -80,6 +81,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<String> images = [
+    'assets/slideshow_pics/ss_1.jpg',
+    'assets/slideshow_pics/ss_2.jpg',
+    'assets/slideshow_pics/ss_3.jpg',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +138,6 @@ class _HomePageState extends State<HomePage> {
                         builder: (BuildContext context){
                           return GestureDetector(
                             onTap: () {
-                              print('The Sizedbox is tapped');
                               Scaffold.of(context).openDrawer();
                             },
                             child: SizedBox(
@@ -152,12 +157,26 @@ class _HomePageState extends State<HomePage> {
                   physics: const BouncingScrollPhysics(),
                   children: [
                     const SizedBox(height: 32),
-                    Center(
-                      child: Image.asset(
-                        'assets/prof_pic3.jpg',
-                        scale: 1.2,
-                      ),
+                    // Center(
+                    //   child: Image.asset(
+                    //     'assets/prof_pic3.jpg',
+                    //     scale: 1.2,
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 200, // adjust the height as per your requirements
+                    //   child: PageView.builder(
+                    //     itemCount: images.length,
+                    //     itemBuilder: (BuildContext context, int index) {
+                    //       return Image.network(images[index]);
+                    //     },
+                    //   ),
+                    // ),
+                    SizedBox(
+                      height: 300,
+                      child: Slideshow(images: images),
                     ),
+
                     const SizedBox(height: 16),
                     const Center(
                       child: Text(
@@ -192,7 +211,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const NavBar(),
+                                  builder: (context) => const Carpool_upload_post(),
                               ),
                             );},
                         ),
@@ -233,8 +252,8 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
 
-                    const SizedBox(height: 28),
-                    const SizedBox(height: 28),
+                    const SizedBox(height: 35),
+                    const SizedBox(height: 35),
                     // const SizedBox(height: 28),
                     // const SizedBox(height: 28),
                     // const SizedBox(height: 28),
@@ -250,37 +269,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _cardMenu({
-    required String title,
-    required String icon,
-    VoidCallback? onTap,
-    Color color = Colors.white,
-    Color fontColor = Colors.teal,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-          vertical: 36,
-        ),
-        width: 156,
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(24),
-        ),
-        child: Column(
-          children: [
-            Image.asset(icon),
-            const SizedBox(height: 10),
-            Text(
-              title,
-              style: TextStyle(fontWeight: FontWeight.bold, color: fontColor),
-            )
-          ],
-        ),
-      ),
-    );
-  }
 }
 
 class MyCardMenu extends StatefulWidget {
@@ -316,7 +304,7 @@ class _MyCardMenuState extends State<MyCardMenu> {
     if (widget.onTap != null) {
       widget.onTap!();
     }
-    Timer(Duration(milliseconds: 50), () {
+    Timer(const Duration(milliseconds: 50), () {
       setState(() {
         _cardColor = widget.color;
         _textColor = widget.fontColor;
@@ -352,12 +340,3 @@ class _MyCardMenuState extends State<MyCardMenu> {
   }
 }
 
-// onTap: () {
-//
-// Navigator.push(
-// context,
-// MaterialPageRoute(
-// builder: (context) => const MobileScreenLayout(),
-// ),
-// );
-// },

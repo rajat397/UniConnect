@@ -18,7 +18,7 @@ class _ProfilePageState extends State<ProfileView> {
       appBar: AppBar(
         title: const Text('User Profile'),
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: Colors.white,
           ),
@@ -34,15 +34,15 @@ class _ProfilePageState extends State<ProfileView> {
                   //     child: child,
                   //   );
                   // },
-                  transitionDuration: Duration(milliseconds: 500),
+                  transitionDuration: const Duration(milliseconds: 500),
                   pageBuilder: (BuildContext context,
                       Animation<double> animation,
                       Animation<double> secAnimation) {
-                    return HomePage();
+                    return const HomePage();
                   },
                   transitionsBuilder: (context, animation, secAnimation,
                       child) {
-                    var begin = Offset(1.0, 0.0);
+                    var begin = const Offset(1.0, 0.0);
                     var end = Offset.zero;
                     var curve = Curves.ease;
                     var tween = Tween(begin: begin, end: end).chain(
@@ -60,7 +60,7 @@ class _ProfilePageState extends State<ProfileView> {
         ),
       ),
       body: Container(
-        padding: EdgeInsets.only(left: 15, top: 20, right: 15),
+        padding: const EdgeInsets.only(left: 15, top: 20, right: 15),
         child: GestureDetector(
           onTap: () {
             FocusScope.of(context).unfocus();
@@ -83,7 +83,7 @@ class _ProfilePageState extends State<ProfileView> {
                             )
                           ],
                           shape: BoxShape.circle,
-                          image: DecorationImage(
+                          image: const DecorationImage(
                               fit: BoxFit.cover,
                               image: AssetImage('assets/prof_pic3.jpg')
                           )
@@ -103,7 +103,7 @@ class _ProfilePageState extends State<ProfileView> {
                               ),
                               color: Colors.black
                           ),
-                          child: Icon(
+                          child: const Icon(
                               Icons.edit,
                               color: Colors.white
                           ),
@@ -112,7 +112,7 @@ class _ProfilePageState extends State<ProfileView> {
                   ],
                 ),
               ),
-              SizedBox(height: 30,),
+              const SizedBox(height: 30,),
               buildTextField("Full Name", "Your Name Here", false),
               buildTextField("Email", "Sample", false),
               buildTextField("Password", "***************8", true),
@@ -129,24 +129,24 @@ class _ProfilePageState extends State<ProfileView> {
   Widget buildTextField(String labelText, String placeholder,
       bool isPasswordTextField) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 30),
+      padding: const EdgeInsets.only(bottom: 30),
       child: TextField(
         obscureText: isPasswordTextField ? isObscurePassword : false,
         decoration: InputDecoration(
             suffixIcon: isPasswordTextField ?
             IconButton(
-                icon: Icon(Icons.remove_red_eye, color: Colors.grey,),
+                icon: const Icon(Icons.remove_red_eye, color: Colors.grey,),
                 onPressed: () {
                   setState(() {
                     isObscurePassword = !isObscurePassword;
                   });
                 }
             ) : null,
-            contentPadding: EdgeInsets.only(bottom: 5),
+            contentPadding: const EdgeInsets.only(bottom: 5),
             labelText: labelText,
             floatingLabelBehavior: FloatingLabelBehavior.always,
             hintText: placeholder,
-            hintStyle: TextStyle(
+            hintStyle: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
                 color: Colors.grey

@@ -86,7 +86,10 @@ class NavBar extends StatelessWidget {
             leading: const Icon(Icons.logout),
             onTap: (){
               FirebaseAuth.instance.signOut();
-              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=> const LoginScreen()), (route) => false);
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (context)=> const LoginScreen()
+                  ), (route) => false);
             },
           ),
           ListTile(
