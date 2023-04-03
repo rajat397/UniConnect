@@ -24,6 +24,7 @@ class AuthMethods {
     required String username,
     required String email,
     required String password,
+    String profilepic="https://firebasestorage.googleapis.com/v0/b/uniconnect-62628.appspot.com/o/default_prof.jpg?alt=media&token=2488a918-e680-4445-a04b-5627c62dcf46",
     // required Uint8List file,
   }) async {
     String res = "Some error occurred";
@@ -39,6 +40,7 @@ class AuthMethods {
           uid: cred.user!.uid,
           email: email,
           password: password,
+          profilepic: profilepic,
         );
         //add user to our database
         await firestore.collection('users').doc(cred.user!.uid).set(

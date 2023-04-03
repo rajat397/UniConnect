@@ -27,6 +27,9 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  fluttertoast: ^8.0.9
+  image_picker: ^0.8.7+1
+  cached_network_image: ^3.0.0
   cloud_firestore: ^4.4.5
   cupertino_icons: ^1.0.2
   firebase_auth: ^4.3.0
@@ -73,6 +76,8 @@ flutter:
     - assets/slideshow_pics/ss_1.jpg
     - assets/slideshow_pics/ss_2.jpg
     - assets/slideshow_pics/ss_3.jpg
+    - assets/loading.gif
+    - assets/background/navbar_bg.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

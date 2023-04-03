@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,30 +11,82 @@ class NavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    User? user = FirebaseAuth.instance.currentUser;
+    final firestore = FirebaseFirestore.instance;
+    String accountEmail = "example@gmail.com";
+
+    // If the user is not null, update the account name and email
+    if (user != null) {
+      accountEmail = user.email ?? "";
+    }
     return Drawer(
       child: ListView(
         // Remove padding
         padding: EdgeInsets.zero,
         children: [
-          const UserAccountsDrawerHeader(
-            accountName: Text('Oflutter.com'),
-            accountEmail: Text('example@gmail.com'),
-            currentAccountPicture: CircleAvatar(
-              child: ClipOval(
-                child: Image(
-                  image: AssetImage('assets/prof_pic3.jpg'),
-                  fit: BoxFit.cover,
-                  width: 90,
-                  height: 90,
-                ),
-              ),
+          UserAccountsDrawerHeader(
+            accountName: StreamBuilder(
+              stream: FirebaseFirestore.instance
+              .collection("users")
+              .doc(FirebaseAuth.instance.currentUser?.uid)
+              .snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Text('Loading...');
+                }
+                if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                }
+                return Text(snapshot.data!['username']);
+              },
+            ),
+            accountEmail: Text(accountEmail),
+            currentAccountPicture: StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection("users")
+                  .doc(FirebaseAuth.instance.currentUser?.uid)
+                  .snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return SizedBox(
+                    width: 90,
+                    height: 90,
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                }
+                final profileImageUrl = snapshot.data!['profilepic'];
+                return CircleAvatar(
+                  child: ClipOval(
+                    child: CachedNetworkImage(
+                      imageUrl: profileImageUrl,
+                      width: 90,
+                      height: 90,
+                      placeholder: (context, url) =>
+                          ClipOval(
+                            child: Image.asset('assets/loading.gif',
+                              width: 90,
+                              height: 90,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                );
+              },
             ),
             decoration: BoxDecoration(
               color: Colors.blue,
               image: DecorationImage(
                   fit: BoxFit.fill,
-                  image: NetworkImage(
-                      'https://oflutter.com/wp-content/uploads/2021/02/profile-bg3.jpg')),
+                  image: AssetImage(
+                      'assets/background/navbar_bg.jpg',)),
             ),
           ),
           ListTile(
@@ -43,7 +97,7 @@ class NavBar extends StatelessWidget {
                   PageRouteBuilder(
                     transitionDuration: Duration(milliseconds: 500),
                     pageBuilder: (BuildContext context,Animation<double> animation,Animation<double> secAnimation){
-                      return ProfileView();
+                      return const ProfileView();
                     },
                     transitionsBuilder: (context,animation,secAnimation,child){
                       var begin= Offset(-1.0, 0.0);
