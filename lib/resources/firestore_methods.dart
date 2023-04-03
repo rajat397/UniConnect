@@ -23,14 +23,14 @@ class FirestoreMethods {
       String postId = const Uuid().v1();
 
       Post post = Post(
-        start: start!,
-        destination: destination!,
-        vehicle: vehicle!,
-        timeOfDeparture: timeOfDeparture!,
-        expectedPerHeadCharge: expectedPerHeadCharge!,
+        start: start,
+        destination: destination,
+        vehicle: vehicle,
+        timeOfDeparture: timeOfDeparture,
+        expectedPerHeadCharge: expectedPerHeadCharge,
         datePublished: DateTime.now(),
         uid: uid,
-        username: username!,
+        username: username,
         postId: postId,
       );
 
