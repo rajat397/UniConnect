@@ -157,21 +157,7 @@ class _HomePageState extends State<HomePage> {
                   physics: const BouncingScrollPhysics(),
                   children: [
                     const SizedBox(height: 32),
-                    // Center(
-                    //   child: Image.asset(
-                    //     'assets/prof_pic3.jpg',
-                    //     scale: 1.2,
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //   height: 200, // adjust the height as per your requirements
-                    //   child: PageView.builder(
-                    //     itemCount: images.length,
-                    //     itemBuilder: (BuildContext context, int index) {
-                    //       return Image.network(images[index]);
-                    //     },
-                    //   ),
-                    // ),
+
                     SizedBox(
                       height: 300,
                       child: Slideshow(images: images),
@@ -208,12 +194,13 @@ class _HomePageState extends State<HomePage> {
                           title: 'CARPOOL',
                           icon:  'assets/inner_icons/carpool.png',
                           onTap: () {
+                            if(mounted){
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => const Carpool_upload_post(),
                               ),
-                            );},
+                            );}},
                         ),
                       ],
                     ),
