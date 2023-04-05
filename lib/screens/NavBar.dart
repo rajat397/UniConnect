@@ -12,6 +12,38 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    showAlertDialog(BuildContext context){
+      Widget cancelButton = TextButton(
+        child: Text("Cancel"),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      );
+      Widget continueButton = TextButton(
+        child: Text("Exit"),
+        onPressed: () {
+          SystemNavigator.pop();
+        },
+      );
+
+      // set up the AlertDialog
+      AlertDialog alert = AlertDialog(
+        title: Text("Confirm exit"),
+        content: Text("Are you sure you want to exit UniConnect?"),
+        actions: [
+          cancelButton,
+          continueButton,
+        ],
+      );
+
+      // show the dialog
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
+    }
     User? user = FirebaseAuth.instance.currentUser;
     final firestore = FirebaseFirestore.instance;
     String accountEmail = "example@gmail.com";
@@ -150,7 +182,7 @@ class NavBar extends StatelessWidget {
             title: const Text('Exit'),
             leading: const Icon(Icons.exit_to_app),
             onTap: () {
-              SystemNavigator.pop();
+              showAlertDialog(context);
             },
           ),
         ],

@@ -65,6 +65,7 @@ class FirestoreMethods {
       String expectedPerHeadCharge,
       String uid,
       String username,
+      String profilepic
 
       ) async {
     String res = "some error occurred";
@@ -82,6 +83,7 @@ class FirestoreMethods {
         uid: uid,
         username: username,
         postId: postId,
+        profilepic: profilepic,
       );
 
       FirebaseFirestore.instance.collection('posts').doc(postId).set(

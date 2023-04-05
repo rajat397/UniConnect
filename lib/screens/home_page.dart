@@ -39,6 +39,8 @@
 import 'dart:async';
 
 // import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
+import 'package:uniconnect/screens/carpool_feed.dart';
 import 'package:uniconnect/util/slideshow.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -90,9 +92,44 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     // model.User user = Provider.of<UserProvider>(context).getUser;
+    showAlertDialog(BuildContext context){
+      Widget cancelButton = TextButton(
+        child: Text("Cancel"),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      );
+      Widget continueButton = TextButton(
+        child: Text("Exit"),
+        onPressed: () {
+          SystemNavigator.pop();
+        },
+      );
 
+      // set up the AlertDialog
+      AlertDialog alert = AlertDialog(
+        title: Text("Confirm exit"),
+        content: Text("Are you sure you want to exit UniConnect?"),
+        actions: [
+          cancelButton,
+          continueButton,
+        ],
+      );
 
-    return Scaffold(
+      // show the dialog
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
+    }
+    return WillPopScope(
+      onWillPop: () async {
+        showAlertDialog(context);
+        return true;
+      },
+    child:Scaffold(
       drawer: const NavBar(),
       // backgroundColor: Colors.indigo.shade50,
       body: SafeArea(
@@ -198,7 +235,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const Carpool_upload_post(),
+                                  builder: (context) => const FeedScreen(),
                               ),
                             );}},
                         ),
@@ -211,7 +248,14 @@ class _HomePageState extends State<HomePage> {
                         MyCardMenu(
                           title: 'FOOD ORDERS',
                           icon:   'assets/inner_icons/food_order.png',
-                          onTap:() {},
+                          onTap:() {
+                            if(mounted){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const Carpool_upload_post(),
+                                ),
+                              );}},
                         ),
                         MyCardMenu(
                           title: 'GAMES',
@@ -253,6 +297,7 @@ class _HomePageState extends State<HomePage> {
       ],
       ),
       ),
+    ),
     );
   }
 

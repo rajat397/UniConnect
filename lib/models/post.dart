@@ -62,11 +62,13 @@ class Post {
   final String timeOfDeparture;
   final  String expectedPerHeadCharge;
   final String uid;
+  final String profilepic;
   final String username;
   final  datePublished;
   final String postId;
 
   const Post({
+    required this.profilepic,
     required this.start,
     required this.destination,
     required this.vehicle,
@@ -89,6 +91,7 @@ class Post {
     "expectedPerHeadCharge":expectedPerHeadCharge,
     "postId":postId,
     "datePublished":datePublished,
+    "profilepic":profilepic,
   };
 
   static Post fromSnap(DocumentSnapshot snap) {
@@ -104,6 +107,7 @@ class Post {
       postId: snapshot['postId'],
       datePublished: snapshot['datePublished'],
       expectedPerHeadCharge: snapshot['expectedPerHeadCharge'],
+      profilepic: snapshot['profilepic'],
     );
   }
 }
