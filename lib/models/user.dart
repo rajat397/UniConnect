@@ -6,6 +6,8 @@ class User {
   final String email;
   final String password;
   final String profilepic;
+
+
   const User({
     required this.email,
     required this.uid,
