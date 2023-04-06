@@ -41,6 +41,10 @@ import 'dart:async';
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:uniconnect/screens/carpool_feed.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:uniconnect/models/FirebaseHelper.dart';
+import 'package:uniconnect/models/UserModel.dart';
+import 'package:uniconnect/screens/chat_home_page.dart';
 import 'package:uniconnect/util/slideshow.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -49,10 +53,9 @@ import 'package:uniconnect/providers/providers.dart';
 // import 'package:flutter/rendering.dart';
 // import 'package:uniconnect/responsive/mobile_screen_layout.dart';
 import 'package:uniconnect/screens/NavBar.dart';
-import 'package:uniconnect/models/user.dart' as model;
+// import 'package:uniconnect/models/user.dart' as model;
 import 'package:uniconnect/screens/carpool_upload_post.dart';
-
-import '../models/user.dart';
+import '../models/user.dart' as MyUser;
 // import 'package:uniconnect/util/colors.dart';
 
 // void main() {
@@ -132,6 +135,24 @@ class _HomePageState extends State<HomePage> {
     child:Scaffold(
       drawer: const NavBar(),
       // backgroundColor: Colors.indigo.shade50,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          User? currentUser = FirebaseAuth.instance.currentUser;
+          if(currentUser != null) {
+              UserModel? thisUserModel =  await FirebaseHelper.getUserModelById(currentUser.uid);
+              if(thisUserModel != null){
+                if(mounted){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Chat_HomePage(userModel: thisUserModel, firebaseuser: currentUser),
+                    ),
+                  );}
+              }
+            }
+          },
+        child: Icon(Icons.chat),
+      ),
       body: SafeArea(
         child: Stack(
           children: [
