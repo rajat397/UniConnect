@@ -195,6 +195,7 @@ class _Carpool_upload_postState extends State<Carpool_upload_post> {
   void uploadPost(
       String uid,
       String username,
+      String profilepic,
       ) async {
     setState(() {
       _isloading = true;
@@ -211,6 +212,7 @@ class _Carpool_upload_postState extends State<Carpool_upload_post> {
         uid,
 
         username,
+        profilepic,
       );
       if (res == "success") {
         setState(() {
@@ -254,6 +256,7 @@ class _Carpool_upload_postState extends State<Carpool_upload_post> {
             onPressed:()=> uploadPost(
               user!.uid,
               user.username,
+              user.profilepic,
             ),
             child: const Text(
               'Post',

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:uniconnect/resources/auth.methods.dart';
 import 'package:uniconnect/responsive/mobile_screen_layout.dart';
 import 'package:uniconnect/responsive/responsive_layout_screen.dart';
@@ -68,7 +67,7 @@ class SignupScreenState extends State<SignupScreen> {
     return Scaffold(
       body: SafeArea(
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/loginbg.jpg'),
                 fit: BoxFit.cover,

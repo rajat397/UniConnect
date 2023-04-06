@@ -39,6 +39,8 @@
 import 'dart:async';
 
 // import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
+import 'package:uniconnect/screens/carpool_feed.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:uniconnect/models/FirebaseHelper.dart';
 import 'package:uniconnect/models/UserModel.dart';
@@ -53,7 +55,6 @@ import 'package:uniconnect/providers/providers.dart';
 import 'package:uniconnect/screens/NavBar.dart';
 // import 'package:uniconnect/models/user.dart' as model;
 import 'package:uniconnect/screens/carpool_upload_post.dart';
-
 import '../models/user.dart' as MyUser;
 // import 'package:uniconnect/util/colors.dart';
 
@@ -93,8 +94,45 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // model.User user = Provider.of<UserProvider>(context).getUser;
+    showAlertDialog(BuildContext context){
+      Widget cancelButton = TextButton(
+        child: Text("Cancel"),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      );
+      Widget continueButton = TextButton(
+        child: Text("Exit"),
+        onPressed: () {
+          SystemNavigator.pop();
+        },
+      );
 
-    return Scaffold(
+      // set up the AlertDialog
+      AlertDialog alert = AlertDialog(
+        title: Text("Confirm exit"),
+        content: Text("Are you sure you want to exit UniConnect?"),
+        actions: [
+          cancelButton,
+          continueButton,
+        ],
+      );
+
+      // show the dialog
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
+    }
+    return WillPopScope(
+      onWillPop: () async {
+        showAlertDialog(context);
+        return true;
+      },
+    child:Scaffold(
       drawer: const NavBar(),
       // backgroundColor: Colors.indigo.shade50,
       floatingActionButton: FloatingActionButton(
@@ -218,7 +256,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const Carpool_upload_post(),
+                                  builder: (context) => const FeedScreen(),
                               ),
                             );}},
                         ),
@@ -231,7 +269,14 @@ class _HomePageState extends State<HomePage> {
                         MyCardMenu(
                           title: 'FOOD ORDERS',
                           icon:   'assets/inner_icons/food_order.png',
-                          onTap:() {},
+                          onTap:() {
+                            if(mounted){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const Carpool_upload_post(),
+                                ),
+                              );}},
                         ),
                         MyCardMenu(
                           title: 'GAMES',
@@ -273,6 +318,7 @@ class _HomePageState extends State<HomePage> {
       ],
       ),
       ),
+    ),
     );
   }
 
