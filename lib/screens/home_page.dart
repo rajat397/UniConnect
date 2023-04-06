@@ -55,6 +55,9 @@ import 'package:uniconnect/providers/providers.dart';
 import 'package:uniconnect/screens/NavBar.dart';
 // import 'package:uniconnect/models/user.dart' as model;
 import 'package:uniconnect/screens/carpool_upload_post.dart';
+
+//import '../models/user.dart';
+import 'buy_sell_p1.dart';
 import '../models/user.dart' as MyUser;
 // import 'package:uniconnect/util/colors.dart';
 
@@ -246,7 +249,14 @@ class _HomePageState extends State<HomePage> {
                         MyCardMenu(
                           title: 'BUY n SELL',
                           icon:  'assets/inner_icons/buy_sell.png',
-                          onTap:() {},
+                          onTap: () {
+                            if(mounted){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const Buy_sell_p1(),
+                                ),
+                              );}},
                         ),
                         MyCardMenu(
                           title: 'CARPOOL',

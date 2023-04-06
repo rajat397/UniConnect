@@ -24,7 +24,8 @@ void main() async {
           appId: '1:187717066638:web:6aa322172fd6fbb1994edf',
           messagingSenderId: '187717066638',
           projectId: 'uniconnect-62628',
-          storageBucket: 'uniconnect-62628.appspot.com'),
+          storageBucket: 'uniconnect-62628.appspot.com'
+      ),
     );
   } else {
     await Firebase.initializeApp();
