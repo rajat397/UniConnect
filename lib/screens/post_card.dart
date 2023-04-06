@@ -13,36 +13,40 @@ class PostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: mobileBackgroundColor,
-      padding: const EdgeInsets.symmetric(vertical: 10),
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      color: cardcolor,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16)
-                .copyWith(right: 0),
-            child: Row(
+          // Padding(
+            // padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+            Row(
               children: [
                 CircleAvatar(
                   radius: 16,
                   backgroundImage: NetworkImage(
                       snap['profilepic'] ?? ''),
                 ),
+                SizedBox(width: 8),
                 Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          snap['username'] ?? '',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        snap['username'] ?? '',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
                         ),
-                      ],
-                    ),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        DateFormat.yMMMd().format(snap['datePublished'].toDate(),),
+                        style: const TextStyle(fontSize: 12, color: secondaryColor),
+                      ),
+                    ],
                   ),
                 ),
                 IconButton(
@@ -79,154 +83,48 @@ class PostCard extends StatelessWidget {
                 ),
               ],
             ),
-          ),
+          // ),
 
           // BODY SECTION BEGINS
-
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-            ),
+          Card(
+            color: Colors.white,
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.only(top: 8),
-                  child: RichText(
-                    text: TextSpan(
-                      style: const TextStyle(
-                          color: primaryColor
-                      ),
-                      children: [
-                        TextSpan(
-                          text: snap['username'] ?? '',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-
-
-                      ],
-                    ),
-
+                ListTile(
+                  title: Text(
+                    snap['start'] ?? '',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text(
+                    snap['destination'] ?? '',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
-
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.only(top: 8),
-                  child: RichText(
-                    text: TextSpan(
-                      style: const TextStyle(
-                          color: primaryColor
+                Divider(),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Vehicle: ${snap['vehicle'] ?? ''}',
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      children: [
-                        TextSpan(
-                          text: snap['start'] ?? '',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-
-
-                      ],
-                    ),
-
+                      SizedBox(height: 8),
+                      Text(
+                        'Time of departure: ${snap['timeOfDeparture'] ?? ''}',
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        'Expected per head charge: ${snap['expectedPerHeadCharge'] ?? ''}',
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
                 ),
-
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.only(top: 8),
-                  child: RichText(
-                    text: TextSpan(
-                      style: const TextStyle(
-                          color: primaryColor
-                      ),
-                      children: [
-                        TextSpan(
-                          text: snap['destination'] ?? '',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-
-
-                      ],
-                    ),
-
-                  ),
-                ),
-
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.only(top: 8),
-                  child: RichText(
-                    text: TextSpan(
-                      style: const TextStyle(
-                          color: primaryColor
-                      ),
-                      children: [
-                        TextSpan(
-                          text: snap['vechicle'] ?? '',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-
-
-                      ],
-                    ),
-
-                  ),
-                ),
-
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.only(top: 8),
-                  child: RichText(
-                    text: TextSpan(
-                      style: const TextStyle(
-                          color: primaryColor
-                      ),
-                      children: [
-                        TextSpan(
-                          text: snap['timeOfDeparture'] ?? '',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-
-
-                      ],
-                    ),
-
-                  ),
-                ),
-
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.only(top: 8),
-                  child: RichText(
-                    text: TextSpan(
-                      style: const TextStyle(
-                          color: primaryColor
-                      ),
-                      children: [
-                        TextSpan(
-                          text: snap['expectedPerHeadCharge'] ?? '',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-
-
-                      ],
-                    ),
-
-                  ),
-                ),
-                //
-                // Container(
-                //   padding: const EdgeInsets.symmetric(vertical: 4),
-                //   child: Text(
-                //     DateFormat.yMMMd().format(snap['datePublished'].toDate(),),
-                //     style: const TextStyle(fontSize: 16, color: secondaryColor),
-                //   ),
-                // )
-
-
               ],
             ),
           ),
@@ -234,5 +132,4 @@ class PostCard extends StatelessWidget {
       ),
     );
   }
-
 }
