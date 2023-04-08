@@ -59,13 +59,16 @@ class Post {
   final String start;
   final  String destination;
   final String  vehicle;
-  final String timeOfDeparture;
+  final DateTime timeOfDeparture;
   final  String expectedPerHeadCharge;
   final String uid;
   final String profilepic;
   final String username;
   final  datePublished;
   final String postId;
+  final String exacstart;
+  final String exacdest;
+  final String addnote;
 
   const Post({
     required this.profilepic,
@@ -78,6 +81,9 @@ class Post {
     required this.username,
     required this.datePublished,
     required this.postId,
+    required this.addnote,
+    required this.exacdest,
+    required this.exacstart,
 
   });
 
@@ -92,6 +98,9 @@ class Post {
     "postId":postId,
     "datePublished":datePublished,
     "profilepic":profilepic,
+    "exacstart": exacstart,
+    "exacdest": exacdest,
+    "addnote": addnote,
   };
 
   static Post fromSnap(DocumentSnapshot snap) {
@@ -108,6 +117,9 @@ class Post {
       datePublished: snapshot['datePublished'],
       expectedPerHeadCharge: snapshot['expectedPerHeadCharge'],
       profilepic: snapshot['profilepic'],
+      exacdest: snapshot['exacdest'],
+      exacstart: snapshot['exacstart'],
+      addnote: snapshot['addnote'],
     );
   }
 }
