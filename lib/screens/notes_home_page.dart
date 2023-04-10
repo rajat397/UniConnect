@@ -4,13 +4,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:uniconnect/screens/carpool_My_Requests.dart';
 import 'package:uniconnect/screens/carpool_upload_post.dart';
+import 'package:uniconnect/screens/notes_upload.dart';
 import 'package:uniconnect/screens/post_card.dart';
 import 'package:uniconnect/util/colors.dart';
 
 import '../main.dart';
 
-class FeedScreen extends StatelessWidget {
-  const FeedScreen({Key? key}) : super(key: key);
+class notesFeedScreen extends StatelessWidget {
+  const notesFeedScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class FeedScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
         title: const Text(
-          "Carpool"
+            "Notes Sharing"
         ),
         actions: [
           _buildPopupMenuButton(context),
@@ -29,23 +30,23 @@ class FeedScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context,
-            PageRouteBuilder(
-              transitionDuration: const Duration(milliseconds: 150),
-              transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secAnimation, Widget child){
-                return ScaleTransition(
-                  alignment: Alignment.bottomRight,
-                    scale: animation,
-                        child: child,
-                );
-              },
-              pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secAnimation){
-                return const Carpool_upload_post();
-              }
-            ));
+              PageRouteBuilder(
+                  transitionDuration: const Duration(milliseconds: 150),
+                  transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secAnimation, Widget child){
+                    return ScaleTransition(
+                      alignment: Alignment.bottomRight,
+                      scale: animation,
+                      child: child,
+                    );
+                  },
+                  pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secAnimation){
+                    return const notes_Upload_Post();
+                  }
+              ));
         },
         backgroundColor: iconcolor,
-          child: const Icon(Icons.add),
-        ),
+        child: const Icon(Icons.add),
+      ),
       body: Stack(
         children: [
           Image.asset(
@@ -55,23 +56,12 @@ class FeedScreen extends StatelessWidget {
             height: double.infinity,
           ),
           StreamBuilder(
-            stream: FirebaseFirestore.instance.collection('posts').snapshots(),
+            stream: FirebaseFirestore.instance.collection('notes').snapshots(),
             builder: (BuildContext context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
-              }
-              final Timestamp currentTime = Timestamp.now();
-              final filteredDocsLate = snapshot.data!.docs.where((doc) => doc['timeOfDeparture'] is Timestamp && doc['timeOfDeparture'].compareTo(currentTime) < 0).toList();
-              if (filteredDocsLate.isNotEmpty) {
-                for (final doc in filteredDocsLate) {
-                  doc.reference.delete().then((value) {
-                    print('Document ${doc.id} deleted successfully.');
-                  }).catchError((error) {
-                    print('Error deleting document ${doc.id}: $error');
-                  });
-                }
               }
               final filteredDocs = snapshot.data!.docs.where((doc) => doc['uid'] != currentUserId).toList();
               if (filteredDocs.isEmpty) {
@@ -84,16 +74,16 @@ class FeedScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 25),
                 child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
-                itemCount: filteredDocs.length,
-                itemBuilder: (context,index)=> Column(
-                children: [
-                    PostCard(
-                  snap: filteredDocs[index].data() ?? {}, hello: uuid.v4(),
+                  itemCount: filteredDocs.length,
+                  itemBuilder: (context,index)=> Column(
+                    children: [
+                      PostCard(
+                        snap: filteredDocs[index].data() ?? {}, hello: uuid.v4(),
+                      ),
+                      const SizedBox(height: 13,),
+                    ],
+                  ),
                 ),
-                  const SizedBox(height: 13,),
-                ],
-                ),
-              ),
               );
             },
           ),
@@ -112,8 +102,8 @@ class FeedScreen extends StatelessWidget {
       },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
         const PopupMenuItem<String>(
-          value: 'my-requests',
-          child: Text('My Requests'),
+          value: 'My_Notes',
+          child: Text('My Notes'),
         ),
       ],
     );

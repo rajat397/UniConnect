@@ -370,6 +370,7 @@ class EditProfile extends StatefulWidget{
       return Padding(
         padding: const EdgeInsets.only(bottom: 30),
         child: TextField(
+          maxLines: null,
           keyboardType: isOnlyDigit ? TextInputType.number : TextInputType.text,
           controller: controller,
           inputFormatters: [_formatter!],

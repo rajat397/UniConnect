@@ -61,10 +61,13 @@ class FirestoreMethods {
       String start,
       String destination,
       String vehicle,
-      String timeOfDeparture,
+      DateTime timeOfDeparture,
       String expectedPerHeadCharge,
       String uid,
       String username,
+      String exacstart,
+      String exacdest,
+      String addnote,
       String profilepic
 
       ) async {
@@ -74,6 +77,9 @@ class FirestoreMethods {
       print(postId);
       print(uid);
       Post post = Post(
+        exacdest: exacdest,
+        exacstart: exacstart,
+        addnote: addnote,
         start: start,
         destination: destination,
         vehicle: vehicle,

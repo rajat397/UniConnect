@@ -59,6 +59,7 @@ import 'package:uniconnect/screens/carpool_upload_post.dart';
 //import '../models/user.dart';
 import 'buy_sell_p1.dart';
 import '../models/user.dart' as MyUser;
+import 'notes_home_page.dart';
 // import 'package:uniconnect/util/colors.dart';
 
 // void main() {
@@ -250,13 +251,14 @@ class _HomePageState extends State<HomePage> {
                           title: 'BUY n SELL',
                           icon:  'assets/inner_icons/buy_sell.png',
                           onTap: () {
-                            if(mounted){
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const Buy_sell_p1(),
-                                ),
-                              );}},
+                            // if(mounted){
+                            //   Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //       builder: (context) => const Buy_sell_p1(),
+                            //     ),
+                            //   );}
+                            },
                         ),
                         MyCardMenu(
                           title: 'CARPOOL',
@@ -280,13 +282,8 @@ class _HomePageState extends State<HomePage> {
                           title: 'FOOD ORDERS',
                           icon:   'assets/inner_icons/food_order.png',
                           onTap:() {
-                            if(mounted){
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const Carpool_upload_post(),
-                                ),
-                              );}},
+
+                          },
                         ),
                         MyCardMenu(
                           title: 'GAMES',
@@ -308,7 +305,15 @@ class _HomePageState extends State<HomePage> {
                         MyCardMenu(
                           title: 'SHARE NOTES',
                           icon:   'assets/inner_icons/notes_sharing.png',
-                          onTap:() {},
+                          onTap:() {
+                            if(mounted){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const notesFeedScreen(),
+                                ),
+                              );}
+                          },
                         ),
 
                       ],
