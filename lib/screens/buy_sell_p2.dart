@@ -156,6 +156,7 @@
 
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uniconnect/resources/buysell_methods.dart';
 
 
 import 'profile_view.dart';
@@ -179,22 +180,30 @@ class List_Item extends StatefulWidget {
 }
 
 class _List_Item extends State<List_Item> {
-  final TextEditingController startController = TextEditingController();
-  final TextEditingController destinationController = TextEditingController();
-  final TextEditingController vehicleController = TextEditingController();
-  final TextEditingController timeOfDepartureController =
+  //final TextEditingController uid = TextEditingController();
+  final TextEditingController pic = TextEditingController();
+  final TextEditingController pdtName = TextEditingController();
+  final TextEditingController pdtDesc =
   TextEditingController();
-  final TextEditingController expectedPerHeadChargeController =
+  final TextEditingController sellingPrice =
   TextEditingController();
+  final TextEditingController phno =
+  TextEditingController();
+ // final TextEditingController postId =
+  //TextEditingController();
+ // final TextEditingController datePublished =
+ // TextEditingController();
 
-  XFile? image;
-
+   XFile? image;
+  //
   final ImagePicker picker = ImagePicker();
 
-  //we can upload image from camera or from gallery based on parameter
+  get imagge => null;
+  //
+  // //we can upload image from camera or from gallery based on parameter
   Future getImage(ImageSource media) async {
     var img = await picker.pickImage(source: media);
-
+    print("kkkkkkkkkkkkkkkkkkkkk  "+img!.path);
     setState(() {
       image = img;
     });
@@ -254,35 +263,48 @@ class _List_Item extends State<List_Item> {
   @override
   void dispose() {
     super.dispose();
-    startController.dispose();
-    destinationController.dispose();
-    vehicleController.dispose();
-    timeOfDepartureController.dispose();
-    expectedPerHeadChargeController.dispose();
+   // uid.dispose();
+    pic.dispose();
+    pdtName.dispose();
+    pdtDesc.dispose();
+    sellingPrice.dispose();
+    phno.dispose();
+   // postId.dispose();
+   // datePublished.dispose();
   }
 
   bool _isloading = false;
   void uploadPost(
       String uid,
-      String username,
-      String profilepic,
+      String pic,
+      String pdtName,
+      String pdtDesc,
+      String sellingPrice,
+      String phno,
+      String postId,
+      datePublished
       ) async {
     setState(() {
       _isloading = true;
     });
     try {
 
-      String res = await FirestoreMethods().uploadPost(
-        startController.text,
-        destinationController.text,
-        vehicleController.text,
-        timeOfDepartureController.text,
-
-        expectedPerHeadChargeController.text,
+      String res = await BuySellMethods().uploadPost(
+        // startController.text,
+        // destinationController.text,
+        // vehicleController.text,
+        // timeOfDepartureController.text,
+        //
+        // expectedPerHeadChargeController.text,
+        // uid,
+        //
+        // username,
+        // profilepic,
         uid,
+        pic,
+        pdtName,pdtDesc,sellingPrice,phno,postId
 
-        username,
-        profilepic,
+
       );
       if (res == "success") {
         setState(() {
@@ -331,6 +353,7 @@ class _List_Item extends State<List_Item> {
 
                       decoration: BoxDecoration(
                         border: Border.all(width: 4, color: Colors.white),
+
                         boxShadow: [
                           BoxShadow(
                             spreadRadius: 2,
@@ -341,7 +364,23 @@ class _List_Item extends State<List_Item> {
                         ],
                         //shape: BoxShape.circle,
                       ),
+                        child: Image.file(File(image!.path)),
+                        //child: image?.path!= null ?
+
+                          // FadeInImage.assetNetwork(
+                          //   placeholder: 'assets/loading.gif',
+                          //   image: image!.path ,
+                          //   fit: BoxFit.cover,
+                          //   imageErrorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                          //     return Image.asset('assets/loading.gif',
+                          //         fit: BoxFit.cover
+                          //     );
+                          //   },
+                          // )
+
+                      //  : Container()
                     ),
+
 
                     Positioned(
                       bottom: 0,
@@ -363,7 +402,7 @@ class _List_Item extends State<List_Item> {
                         ),
                       ),
                     ),
-                    image != null?
+                    imagge != null?
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: ClipRRect(
@@ -390,7 +429,7 @@ class _List_Item extends State<List_Item> {
               buildTextField("Product Name", "Product Name", false),
               buildTextField("Product Description", "Describe your product here.", false),
               buildNumberField("Selling Price", "Estimate Price", false,6),
-              buildTextField("Hostel Number", "Enter your hostel number", false),
+             // buildTextField("Hostel Number", "Enter your hostel number", false),
               buildNumberField("Phone Number", "Enter your phone number", false,10),
               TextButton(
                 style: TextButton.styleFrom(
